@@ -110,8 +110,8 @@ var formDef2=
   {caption:'Зарегистрироваться',kind:'submit'},
 ];
 
-form('Form1', formDef1);
+form('form1', formDef1);
 
-form('Form2', formDef2);
+form('form2', formDef2);
 
 
