@@ -12,11 +12,11 @@ function deepCopy (elem) {
          for ( var i=0; i<elem.length; i++ ) {
            if (elem[i] instanceof Object) 
             copyElem[i] = deepCopy(elem[i])
-           else copyElem.push(elem[i])
+           else copyElem[i]=elem[i]
          } 
     }
 
-    else if (elem instanceof Object) {
+    else {
         copyElem = Object.assign({},elem);
     
         for (let key in elem) {
@@ -31,8 +31,13 @@ function deepCopy (elem) {
     
 function deepCopyTests() {
 
-    function check (v) {
-        return v===true;
+    function check (v,i,a) {
+        if (v===true)
+        return true
+        else {
+            console.log('ошибка в выражении номер '+i+': '+a[i]);
+            return false;
+        };
       }
 
     {
@@ -45,6 +50,8 @@ function deepCopyTests() {
          (isNaN(h2.f)), (h2.c instanceof Array)];
         
         var result=toCheck.every(check);
+        
+        
 
         console.log((result)
             ?'пройден':'НЕ ПРОЙДЕН!')
