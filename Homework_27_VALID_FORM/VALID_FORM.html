@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>VALID_FORM</title>
+</head>
+
+<body>
+  <p>Для внесения вашего сайта в каталог, заполните форму:</p>
+  <form name="VALID_FORM" method=post action='https://fe.it-academy.by/TestForm.php'>
+    <label>
+        Разработчики:
+        <input type="text" name="dev" class="formElem">
+    </label><br>
+    <label>
+        Название сайта:
+        <input type="text" name="name" class="formElem">
+    </label><br>
+    <label>
+        URL сайта:
+        <input type="text" name="url" class="formElem">
+    </label><br>
+    <label>
+        Дата запуска сайта:
+        <input type="date" name="date" class="formElem">
+    </label><br>
+    <label>
+        Посетителей в сутки:
+        <input type="number" name="visit" class="formElem">
+    </label><br>
+    <label>
+        E-mail для связи:
+        <input type="email" name="email" class="formElem">
+    </label><br>
+    <label>
+        Рубрика каталога:
+        <select name="rubric" class="formElem">
+            <option value="1">здоровье</option>
+            <option value="2">домашний уют</option>
+            <option value="3">бытовая техника</option>
+        </select>
+    </label><br>
+    <label class="placingTag">
+        Размещение:
+        <input type="radio" name="placing" value="1" class="formElem">бесплатное
+        <input type="radio" name="placing" value="2" class="formElem">платное
+        <input type="radio" name="placing" value="3" class="formElem">VIP
+    </label><br>
+    <label>
+        Разрешить отзывы:
+        <input type="checkbox" name="comment" class="formElem">
+    </label><br>
+    <label>
+        Описание сайта:<br>
+        <textarea name="description" class="formElem"></textarea>
+    </label><br>
+    <input type="submit" value="Опубликовать">
+  </form>
+
+
+  <script src="VALID_FORM.js"></script>
+
+</body>
+
+</html>
