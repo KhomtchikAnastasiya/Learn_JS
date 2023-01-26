@@ -22,34 +22,22 @@ function validateForm (eo) {
     var errors=document.querySelectorAll('.error');
 
     for (var i = 0; i < errors.length; i++) {
-        errors[i].remove() 
+        errors[i].remove(); 
     }
-
-    /*Вопрос: Почему если использую getElementsByClassName, то удаляются
-    не все теги, а через один?
-  
-    var errors=document.getElementsByClassName('error');
-      */
 
     var formElem=document.getElementsByClassName('formElem');
 
-    const scrollH={};
-    function scrollCheck(scrollH) {
-            if ( 'scroll' in scrollH )
-              return;
-            else {
-            error.scrollIntoView();
-            error.focus;
-            scrollH['scroll']=true;
-            }
-        }
-
+    var counter=[];
     for (var i = 0; i < formElem.length; i++) {
         if (formElem[i].value=="") {
           var error=errorMessage('Поле не заполнено!', error);
           formElem[i].after(error);
+          if (!(1 in counter)){
+            formElem[i].focus();
+            counter[1]=true;
+            }
           eo.preventDefault();
-          scrollCheck(scrollH);
+         
         }
     }
 
@@ -60,7 +48,6 @@ function validateForm (eo) {
         var error=errorMessage('Поле не заполнено!', error);
         var placingTag=document.querySelector('.placingTag');
         placingTag.append(error);
-        placingField.scrollIntoView();
         eo.preventDefault();
     }
 
@@ -68,13 +55,10 @@ function validateForm (eo) {
     var rubricValue=rubricField.value;
 
     if (rubricValue=="1") {
-        var error=rubricField.parentNode.querySelector('.error');
-        if (error==null) {
         error=errorMessage('Поле в начальном значении! Проверьте еще раз :)', error);
         rubricField.parentNode.append(error);
         rubricField.scrollIntoView();
         eo.preventDefault();
-        }
     }
 
     var commentField=formTag.elements.comment;
@@ -119,14 +103,6 @@ const descriptionField=formTag.elements.description;
 descriptionField.addEventListener('focusout',validateField,false);
 descriptionField.addEventListener('change',validateField,false);
 
-/*var placingField=formTag.elements.placing;
-placing.addEventListener('change',validateField,false);
-
-попробовала подписаться на событие для радиокнопок - выдает ошибку.
-В чем может быть особенность? Не получается из-за того, что в placingField 
-попадает псевдомассив кнопок? 
-*/
-
 function validateField(eo) {
     eo=eo||window.event;
     var field=eo.target;
@@ -140,7 +116,6 @@ function validateField(eo) {
     if ( fieldValue =="") {
         var error=errorMessage('Поле не заполнено!', error);
         field.parentNode.append(error);
-        field.focus();
         return;
     }
 }
