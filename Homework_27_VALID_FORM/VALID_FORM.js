@@ -27,14 +27,14 @@ function validateForm (eo) {
 
     var formElem=document.getElementsByClassName('formElem');
 
-    var counter=[];
+    var scroll;
     for (var i = 0; i < formElem.length; i++) {
         if (formElem[i].value=="") {
           var error=errorMessage('Поле не заполнено!', error);
           formElem[i].after(error);
-          if (!(1 in counter)){
+          if (!scroll){
             formElem[i].focus();
-            counter[1]=true;
+            scroll=true;
             }
           eo.preventDefault();
          
@@ -119,4 +119,77 @@ function validateField(eo) {
         return;
     }
 }
+
+const commentField=formTag.elements.comment;
+commentField.addEventListener('change', validateСommentField,false);
+
+function validateСommentField(eo) {
+    eo=eo||window.event;
+    var commentValue=commentField.checked;
+    var error=commentField.parentNode.querySelector('.error');
+    if (error!=null) {
+        error.remove();
+    }
+
+    if (!commentValue) {
+        var error=errorMessage('Необходимо разрешить отзывы', error);
+        commentField.parentNode.append(error);
+    }
+    return;
+}
+
+
+const placingField1=document.getElementById("radio1");
+const placingField2=document.getElementById("radio2");
+const placingField3=document.getElementById("radio3");
+
+
+placingField1.addEventListener('change', validatePlacingField,false);
+placingField2.addEventListener('change', validatePlacingField,false);
+placingField3.addEventListener('change', validatePlacingField,false);
+
+
+function validatePlacingField(eo) {
+    eo=eo||window.event;
+    var field=eo.target;
+    const fieldValue=field.value;
+
+    var placingTag=document.querySelector('.placingTag');
+
+    var error=placingTag.querySelector('.error');
+
+    if (error!=null) {
+        error.remove();
+    }
+
+    if (fieldValue=="") {
+    var error=errorMessage('Поле не заполнено!', error);
+    placingTag.append(error);
+
+    }
+    return;
+}
+
+
+
+const rubricField=formTag.elements.rubric;
+rubricField.addEventListener('change', validateRubricField,false);
+rubricField.addEventListener('focusout',validateRubricField,false);
+
+function validateRubricField(eo) {
+    eo=eo||window.event;
+    var rubricValue=rubricField.value;
+    var error=rubricField.parentNode.querySelector('.error');
+    
+    if (error!=null) {
+        error.remove();
+    }
+
+    if (rubricValue=="1") {
+        error=errorMessage('Поле в начальном значении! Проверьте еще раз :)', error);
+        rubricField.parentNode.append(error);
+    }
+    return;
+}
+
 
