@@ -1,91 +1,87 @@
 'use strict'
 
+
+function documentReady() {
+    var pics=document.getElementsByTagName('img');
+    
+    for (var i=0; i<pics.length; i++) {
+     let pic=pics[i];
+     
+     pic.style.position='absolute';
+     pic.style.top=0;
+     pics[0].style.left=0;
+     pics[0]._left=0;
+     let picStyles=window.getComputedStyle(pic);
+     pic._width=parseFloat(picStyles['width']);
+
+     if (i>0){
+        pic._left=pics[i-1]._left+pics[i-1]._width;
+        pic.style.left=(pic._left)+"px";
+     }
+    }
+}
+documentReady();
+
 const fieldH=document.getElementsByTagName('body');
 const field=fieldH[0];
 
 field.addEventListener('mousedown', moveStart, false);
-field.addEventListener('mousemove', move, false);
-field.addEventListener('mouseup', moveEnd, false);
-
-window.addEventListener('DOMContentLoaded',documentReady,false);
-
-function documentReady() {
-var pics=document.getElementsByTagName('img');
-
-for (var i=0; i<pics.length; i++) {
- let elem=pics[i];
- elem.style.position='absolute';
- elem.style.top=0;
- pics[0].style.left=0;
- pics[0]._left=0;
- let picStyles=window.getComputedStyle(elem);
- elem._width=parseFloat(picStyles['width']);
- console.log(elem._width);
- if (i>0){
-    elem._left=pics[i-1]._left+pics[i-1]._width;
-    elem.style.left=(elem._left)+"px";
-    console.log('if'+elem.style.left);
- }
-}
-}
-
-let mouseX=0;
-let mouseY=0;
 
 //z-index
 let z=0;
-
 
 function moveStart(eo) {
     eo=eo||window.event;
     eo.preventDefault();
 
-    // какой мяч кликнут?
+    // какая картинка кликнута?
     let pic=eo.target;
 
     if ( pic.tagName=='IMG' ) {
 
-    pic.style.zIndex=++z;
-
-    // находим координаты картинки
-    let picX=pic.offsetLeft;
-    let picY=pic.offsetTop;
-
-    console.log(picX, picY);
-
-    // находим координаты клика
-    let clickX=eo.pageX;
-    let clickY=eo.pageY;
-  
-    console.log(clickX, clickY);
-
-    // запоминаем разницу между координатами мыши и координатами картинки
-    mouseX=clickX-picX;
-    mouseY=clickY-picY;
-
-    console.log(mouseX, mouseY);
-    }
-}
-
-
-function moveEnd(eo) {
-    eo=eo||window.event;
-    eo.preventDefault();
-}
-
-function move(eo) {
-    eo=eo||window.event;
-    eo.preventDefault();
-
-    let pic=eo.target;
-
-    if ( pic.tagName=='IMG' ) {
+        pic.style.cursor='pointer';
     
-    // его новые координаты есть координаты касания минус запомненная разница
-    pic.style.left=(eo.pageX-mouseX)+"px";
-    pic.style.top=(eo.pageY-mouseY)+"px";
+        pic.style.zIndex=++z;
 
-    console.log(mouseX, mouseY);
-    console.log(pic.style.left, pic.style.top);}
+        // находим координаты картинки
+        let picX=pic.offsetLeft;
+        let picY=pic.offsetTop;
+
+        // находим координаты клика
+        let clickX=eo.pageX;
+        let clickY=eo.pageY;
+
+        // запоминаем разницу между координатами мыши и координатами картинки
+        pic._mouseX=clickX-picX;
+        pic._mouseY=clickY-picY;
+
+        pic.addEventListener('mousemove', move, false);
+        pic.addEventListener('mouseup', moveEnd, false);
+        
+        function move(eo) {
+            eo=eo||window.event;
+            eo.preventDefault();
+
+            let pic=eo.target;
+
+            //новые координаты картинки есть координаты касания минус запомненная разница
+            pic.style.left=(eo.pageX-pic._mouseX)+"px";
+            pic.style.top=(eo.pageY-pic._mouseY)+"px";
+        }
+
+        function moveEnd(eo) {
+            eo=eo||window.event;
+            eo.preventDefault();
+
+            let pic=eo.target;
+
+            pic.style.cursor='';
+            
+            pic.removeEventListener('mousedown', moveStart, false);
+            pic.removeEventListener('mousemove', move, false);
+        }
+    }
+
 }
+
 
