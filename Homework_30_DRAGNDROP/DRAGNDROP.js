@@ -1,26 +1,24 @@
 'use strict'
 
+window.addEventListener('load',documentReady,false);
 
 function documentReady() {
     var pics=document.getElementsByTagName('img');
-    
-    for (var i=0; i<pics.length; i++) {
-     let pic=pics[i];
-     
-     pic.style.position='absolute';
-     pic.style.top=0;
-     pics[0].style.left=0;
-     pics[0]._left=0;
-     let picStyles=window.getComputedStyle(pic);
-     pic._width=parseFloat(picStyles['width']);
 
-     if (i>0){
-        pic._left=pics[i-1]._left+pics[i-1]._width;
-        pic.style.left=(pic._left)+"px";
-     }
+    for (var i=0; i<pics.length; i++) {
+        let pic=pics[i];
+        pic._left=pic.offsetLeft;
+        pic._top=pic.offsetTop;
     }
+
+    for (var i=0; i<pics.length; i++) {
+        let pic=pics[i];
+        pic.style.left=pic._left+"px";
+        pic.style.top=pic._top+"px";
+        pic.style.position='absolute';
+    }
+
 }
-documentReady();
 
 const fieldH=document.getElementsByTagName('body');
 const field=fieldH[0];
