@@ -28,12 +28,15 @@ field.addEventListener('mousedown', moveStart, false);
 //z-index
 let z=0;
 
+let mouse={ Lbtn: false }
+
 function moveStart(eo) {
     eo=eo||window.event;
     eo.preventDefault();
 
     // какая картинка кликнута?
     let pic=eo.target;
+    mouse.Lbtn = true; 
 
     if ( pic.tagName=='IMG' ) {
 
@@ -55,16 +58,21 @@ function moveStart(eo) {
 
         pic.addEventListener('mousemove', move, false);
         pic.addEventListener('mouseup', moveEnd, false);
+        pic.addEventListener('mouseleave', leave, false);
+        pic.addEventListener('mouseenter', moveEnd, false);
+        
         
         function move(eo) {
             eo=eo||window.event;
             eo.preventDefault();
+            if (mouse.Lbtn) {
 
             let pic=eo.target;
 
             //новые координаты картинки есть координаты касания минус запомненная разница
             pic.style.left=(eo.pageX-pic._mouseX)+"px";
             pic.style.top=(eo.pageY-pic._mouseY)+"px";
+            }
         }
 
         function moveEnd(eo) {
@@ -74,10 +82,19 @@ function moveStart(eo) {
             let pic=eo.target;
 
             pic.style.cursor='';
-            
-            pic.removeEventListener('mousedown', moveStart, false);
+            mouse.Lbtn = false; 
             pic.removeEventListener('mousemove', move, false);
         }
+
+        function leave(eo) {
+            eo=eo||window.event;
+            eo.preventDefault();
+
+            if (mouse.Lbtn)
+                move(eo);
+            else moveEnd(eo)
+        }
+
     }
 
 }
