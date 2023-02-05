@@ -20,15 +20,12 @@ function documentReady() {
 
 }
 
-const fieldH=document.getElementsByTagName('body');
-const field=fieldH[0];
-
-field.addEventListener('mousedown', moveStart, false);
+window.addEventListener('mousedown', moveStart, false);
 
 //z-index
 let z=0;
 
-let mouse={ Lbtn: false }
+let draggedPic=null;
 
 function moveStart(eo) {
     eo=eo||window.event;
@@ -36,13 +33,14 @@ function moveStart(eo) {
 
     // какая картинка кликнута?
     let pic=eo.target;
-    mouse.Lbtn = true; 
 
     if ( pic.tagName=='IMG' ) {
 
         pic.style.cursor='pointer';
     
         pic.style.zIndex=++z;
+
+        draggedPic=pic;
 
         // находим координаты картинки
         let picX=pic.offsetLeft;
@@ -56,23 +54,18 @@ function moveStart(eo) {
         pic._mouseX=clickX-picX;
         pic._mouseY=clickY-picY;
 
-        pic.addEventListener('mousemove', move, false);
+        window.addEventListener('mousemove', move, false);
         pic.addEventListener('mouseup', moveEnd, false);
-        pic.addEventListener('mouseleave', leave, false);
-        pic.addEventListener('mouseenter', moveEnd, false);
-        
         
         function move(eo) {
+            if (!draggedPic)
+                return;
             eo=eo||window.event;
             eo.preventDefault();
-            if (mouse.Lbtn) {
-
-            let pic=eo.target;
 
             //новые координаты картинки есть координаты касания минус запомненная разница
-            pic.style.left=(eo.pageX-pic._mouseX)+"px";
-            pic.style.top=(eo.pageY-pic._mouseY)+"px";
-            }
+            draggedPic.style.left=(eo.pageX-pic._mouseX)+"px";
+            draggedPic.style.top=(eo.pageY-pic._mouseY)+"px";
         }
 
         function moveEnd(eo) {
@@ -82,17 +75,9 @@ function moveStart(eo) {
             let pic=eo.target;
 
             pic.style.cursor='';
-            mouse.Lbtn = false; 
-            pic.removeEventListener('mousemove', move, false);
-        }
-
-        function leave(eo) {
-            eo=eo||window.event;
-            eo.preventDefault();
-
-            if (mouse.Lbtn)
-                move(eo);
-            else moveEnd(eo)
+            window.removeEventListener('mousemove', move, false);
+            pic.removeEventListener('mouseup', moveEnd, false);
+            draggedPic=null;
         }
 
     }
