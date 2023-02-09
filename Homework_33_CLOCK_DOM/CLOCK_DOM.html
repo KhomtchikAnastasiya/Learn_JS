@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=UTF-8>
+    <title>CLOCK_DOM</title>
+  </head>
+  <body>
+<style>
+  .clockHand {
+    position:absolute;
+    background-color: black;
+    border-radius: 15%;
+  }
+  .currentTime {
+    position:absolute;
+    transform: translate(-50%, 0)
+  }
+
+</style>
+<input type="number" id="clockDiameter"><br>
+<input type="button" value="Построить часы" onclick="buildClock()">
+<div id="clockContainer">
+  <div class="currentTime" id="currentTime"></div>
+  <div class="clockHand" id="hourHand"></div>
+  <div class="clockHand" id="minuteHand"></div>
+  <div class="clockHand" id="secondHand"></div>
+</div>
+<script src="CLOCK_DOM.js">
+</script>
+  </body>
+</html>
