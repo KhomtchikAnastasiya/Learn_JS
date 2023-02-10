@@ -116,7 +116,6 @@ function buildClock() {
     function createTimer1() {
     let begin=new Date();
     let int=1000-(begin-now);
-    console.log('now',now, 'begin',begin, 'int', int);
     timer2=setTimeout(createTimer,int);
     clearTimeout(timer1);
     }
