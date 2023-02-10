@@ -16,6 +16,9 @@ const secondHandWidth=2;
 
 
 
+
+
+
 function buildClock() {
 
     var clockDiameter=document.getElementById('clockDiameter');
@@ -99,13 +102,31 @@ function buildClock() {
     currentTime.style.left=clockDiameterValue/2+'px';
     currentTime.style.zIndex=1;
 
-    const now=new Date();
-    const milliseconds=now.getMilliseconds();
-    var int=1000-milliseconds;
-    let timer1=setTimeout(createTimer,int);
+    updateTime();
+
+    let timer=setInterval(updateTime,1000);
+
+    /*
+
+    let now=new Date();
+    let timer2;
+
+    let timer1=setTimeout(createTimer1,0);
+
+    function createTimer1() {
+    let begin=new Date();
+    let int=1000-(begin-now);
+    console.log('now',now, 'begin',begin, 'int', int);
+    timer2=setTimeout(createTimer,int);
+    clearTimeout(timer1);
+    }
+
     function createTimer() {
     let timer=setInterval(updateTime,1000);
+    clearTimeout(timer2);
     }
+
+    */
 
   
 };
