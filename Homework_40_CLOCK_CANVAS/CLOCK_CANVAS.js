@@ -93,7 +93,9 @@ function updateTime() {
         
         context.fillStyle='black';
         context.font=`${8*prop}px Times New Roman`;
-        context.fillText(i,`${numCenterX-8*prop/4}`,`${numCenterY+numDiameterValue/4}`);
+        context.textAlign='center';
+        context.textBaseline='middle';
+        context.fillText(i,`${numCenterX}`,`${numCenterY}`);
     }
 
  // задаем стрелочкам размеры и толщину
@@ -155,6 +157,6 @@ function updateTime() {
 
     context.fillStyle='black';
     context.font=`${8*prop}px Times New Roman`;
-    context.fillText(`${str0l(hours,2) + ':' + str0l(minutes,2) + ':' + str0l(seconds,2)}`,`${clockCenterX-clockDiameterValue*prop/16}`,`${clockDiameterValue*prop/4}`);
-
+    context.textAlign='center';
+    context.fillText(`${str0l(hours,2) + ':' + str0l(minutes,2) + ':' + str0l(seconds,2)}`,`${clockCenterX}`,`${clockDiameterValue*prop/4}`);
 }
