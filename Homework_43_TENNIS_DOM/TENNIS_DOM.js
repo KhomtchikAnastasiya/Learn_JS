@@ -38,14 +38,40 @@ let resultH={
         result.innerHTML=`${this.result1}:${this.result2}`;
     }
 }
-let xRandom=Math.random()*2;
-let yRandom=Math.random();
+
+let angle;
+let horiz;
+let side;
+let startSpeedX=0;
+let startSpeedY=0;
+
+function setStartSpeed(){
+    //определяем рандомно угол от 20 до 45 градусов
+    angle=Math.floor(Math.random()*(45-20+1))+20;
+    //определяем угол будет ниже горизонтали (==0) или выше (==1)
+    horiz=Math.floor(Math.random()*(1-0+1))+0;
+    //определяем направление из центра налево(==0)или направо(==1) 
+    side=Math.floor(Math.random()*(1-0+1))+0;
+    startSpeedX=1;
+    if (horiz==0){
+        startSpeedY=-startSpeedX*Math.tan(angle);
+    }
+    else startSpeedY=startSpeedX*Math.tan(angle);
+
+    if (side==0){
+        startSpeedX=-1;
+    };
+
+    return startSpeedX, startSpeedY
+}
+
+setStartSpeed();
 
 let ballH={
     posX : 350,
     posY : 200,
-    speedX : xRandom,
-    speedY : yRandom,
+    speedX : 0,
+    speedY : 0,
     width : 20,
     height: 20,
 
@@ -86,10 +112,32 @@ let fieldH={
     width : 700,
     height : 400,
 }
-let timer;
+
+let timer=0;
 
 function startGame() {
-    timer=requestAnimationFrame(tick);
+
+    if ( !timer ) { // таймера нет?
+        timer=requestAnimationFrame(tick);
+    }
+
+    setStartSpeed();
+
+    ballH.posX=350;
+    ballH.posY=200;
+    ballH.speedX=startSpeedX;
+    ballH.speedY=startSpeedY;
+    ballH.update();
+
+    racket1H.posX=3;
+    racket1H.posY=200;
+    racket1H.update();
+
+    racket2H.posX=697;
+    racket2H.posY=200;
+    racket2H.update();
+
+    console.log(timer);
 }
 
 function tick() {
@@ -115,22 +163,18 @@ function tick() {
     // вылетел ли мяч правее стены?
     if ( (ballH.posX+ballH.width/2)>fieldH.width ) {
         resultH.result1+=1;
-        ballH.posX=350,
-        ballH.posY=200,
+        ballH.speedX=0;
+        ballH.speedY=0;
+        ballH.posX=fieldH.width-ballH.width/2;
         resultH.update();
-        ballH.speedX=Math.random()*2;
-        ballH.speedY=Math.random();
-        return;
     }
     // вылетел ли мяч левее стены?
     if ( (ballH.posX-ballH.width/2)<0 ) {
         resultH.result2+=1;
-        ballH.posX=350,
-        ballH.posY=200,
+        ballH.speedX=0;
+        ballH.speedY=0;
+        ballH.posX=ballH.width/2;
         resultH.update();
-        ballH.speedX=Math.random()*2;
-        ballH.speedY=Math.random();
-        return;
     }
 
     ballH.posY+=ballH.speedY;
@@ -179,9 +223,7 @@ function tick() {
 
     racket2H.update();
 
-
-
-    requestAnimationFrame(tick);
+    timer=requestAnimationFrame(tick);
 }
 
 ballH.update();
