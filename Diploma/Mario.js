@@ -13,12 +13,8 @@ var gameTime = 0;
 var isGameOver;
 var gameState = 0;
 var dt = 1;
-var player;
-
-// The score
 var score = 0;
 var scoreEl = document.getElementById('score');
-
 var lastTime= Date.now();
 var now;
 var dt;
@@ -37,11 +33,11 @@ const preloadedImagesH={}; // ключ - имя предзагруженного
         preloadedImagesH[fn]=true;
     };
 
-const playerLeft='/Diploma/image/playerl.png';
-const playerRight='/Diploma/image/playerr.png';
-const enemyLeft='/Diploma/image/enemyl.png';
-const enemyRight='/Diploma/image/enemyr.png';
-const tiles='/Diploma/image/tiles.png';
+const playerLeft='image/playerl.png';
+const playerRight='image/playerr.png';
+const enemyLeft='image/enemyl.png';
+const enemyRight='image/enemyr.png';
+const tiles='image/tiles.png';
 
 preloadImage(playerLeft);
 preloadImage(playerRight);
@@ -63,15 +59,19 @@ function Sprite (url, pos, size, frames, dir, fieldPos) {
     self.fieldPos = fieldPos;
     self.FieldPosYBeforeJump = fieldPos[1];
     self.framesBeforeJump = frames;
-    player.posBeforeJump = pos;
+    self.posBeforeJump = pos;
     self.speedX = 0;
     self.speedY = 0;
     var sprite;
 
     sprite=document.createElement("div");
     playField.appendChild(sprite);
-
+    sprite.style.left=`0px`;
+    sprite.style.top=`0px`;
+    sprite.style.backgroundRepeat="no-repeat";
+    sprite.style.position='absolute'; 
     
+  
     self.create=function(){
         
         self._index += self.speedX/2;
@@ -95,31 +95,26 @@ function Sprite (url, pos, size, frames, dir, fieldPos) {
             self.posX += frame * self.size[0];}
             else self.posX=self.pos[0];
         }
-    
 
-    
-    sprite.style.backgroundImage=`url('${self.url}')`;
-    sprite.style.backgroundRepeat="no-repeat";
-    sprite.style.position='absolute';    
-    sprite.style.backgroundPosition=`-${self.posX}px -${self.posY}px`;
-    sprite.style.width=`${self.size[0]}px`;
-    sprite.style.height=`${self.size[1]}px`;
-    sprite.style.left=`${self.fieldPos[0]}px`;
-    sprite.style.top=`${self.fieldPos[1]}px`;
-    sprite.style.transform="translateY(100px); ";
 
+        sprite.style.backgroundImage=`url('${self.url}')`;
+        sprite.style.backgroundPosition=`-${self.posX}px -${self.posY}px`;
+        sprite.style.width=`${self.size[0]}px`;
+        sprite.style.height=`${self.size[1]}px`;
+        sprite.style.transform=`scale(2) translate(${self.fieldPos[0]}px, ${self.fieldPos[1]}px) translateZ(0)`;
     };
 
     self.update=function(){
 
         sprite.style.backgroundPosition=`-${self.pos[0]}px -${self.pos[1]}px`;
-        sprite.style.left=`${self.fieldPos[0]}px`;
-        sprite.style.top=`${self.fieldPos[1]}px`;
+        sprite.style.transform=`translate(${self.speedX}px,${self.speedY}px)`;
+        //sprite.style.left=`${self.fieldPos[0]}px`;
+        //sprite.style.top=`${self.fieldPos[1]}px`;
     }
 
 };
 
-player=new Sprite(playerRight, [82, 32], [15, 15], [0, 1, 2], 'horizontal', [200, 370]);
+var player= new Sprite(playerRight, [82, 32], [15, 15], [0, 1, 2], 'horizontal', [100, 188]);
 player.create();
 
 window.addEventListener("keydown", keyDown);
@@ -166,7 +161,7 @@ function tick() {
 
     player.fieldPos[0]+=player.speedX;
 
-    player.fieldPos[1]+=player.speedY;
+    player.fieldPos[1]+=player.speedY ;
 
     player.create();
 
