@@ -722,6 +722,9 @@ coins.forEach(coin => {
         livesEl.innerHTML=lives;
         score = 0;
         scoreEl.innerHTML=score;
+        setTimeout( function() {
+        clickSound(mainSound);
+        },3000);
         init ();
         
         player = new Player ();
@@ -730,7 +733,7 @@ coins.forEach(coin => {
         gameTime = gameTimeValue;
         timeEl.innerHTML=gameTime;
         }
-        else if (lives<=1) {
+        else if (lives<=1 && gameState ===1) {
             mainSound.pause();
             clickSound(gameOverSound);
             vibro(false);
@@ -756,6 +759,9 @@ coins.forEach(coin => {
             livesEl.innerHTML=lives;
             score = 0;
             scoreEl.innerHTML=score;
+            setTimeout( function() {
+                clickSound(mainSound);
+                },3000);
             init ();
             player = new Player ();
             beginTime = Date.now();
@@ -763,7 +769,7 @@ coins.forEach(coin => {
             gameTime = gameTimeValue;
             timeEl.innerHTML=gameTime;
         }
-        else if (lives<=1) {
+        else if (lives<=1 && gameState === 1) {
             mainSound.pause();
             clickSound(gameOverSound);
             vibro(false);
@@ -842,6 +848,7 @@ function start(eo) {
         gameTime = gameTimeValue;
         timeEl.innerHTML=gameTime;
         init ();
+        clickSound(mainSound);
         player = new Player ();
 
         beginTime = Date.now();
