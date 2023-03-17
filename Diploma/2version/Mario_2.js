@@ -1,10 +1,16 @@
 "use strict"
 
-const canvas=document.getElementById('field');
-const context=canvas.getContext('2d');
+let canvas; 
+let context;
+
+function canvasInit() {
+canvas=document.getElementById('field');
+context=canvas.getContext('2d');
 
 canvas.width = 928;
 canvas.height = 464;
+}
+
 
 let score = 0;
 let lastTime= Date.now();
@@ -33,17 +39,11 @@ let now;
 let beginTime;
 let dt = 0;
 let lastKey;
-
-let scoreEl = document.getElementById('score');
-scoreEl.innerHTML=score;
-let worldEl = document.getElementById('world');
-worldEl.innerHTML=world;
-let livesEl = document.getElementById('lives');
-livesEl.innerHTML=lives;
-let coinsEl = document.getElementById('coins');
-coinsEl.innerHTML=coinsSum;
-let timeEl = document.getElementById('time');
-timeEl.innerHTML=gameTime;
+let scoreEl;
+let worldEl;
+let livesEl;
+let coinsEl;
+let timeEl;
 
 let imageA = {
     brick:'image/brick.png',
@@ -124,8 +124,6 @@ function Player () {
 
     self.currentFrame=self.frames.stand.right;
     
-    
-
     self.draw = function () {
 
         this._index += 0.2;
@@ -169,14 +167,8 @@ function Platform ({x, y, width, height, image}) {
     this.image = image;
 
     this.draw = function () {
-    
-        context.save();
-        /*
-        var patt=context.createPattern(this.image,'repeat');
-        context.fillStyle=patt;
-        context.fillRect(this.pos.x, this.pos.y, (this.pos.x+this.width), (this.pos.y+this.height));
-        */
 
+        context.save();
         context.drawImage(this.image, this.pos.x, this.pos.y)
         context.restore();
 
@@ -210,12 +202,6 @@ function Block ({x, y, width, height, image}) {
     this.draw = function () {
     
         context.save();
-        /*
-        var patt=context.createPattern(this.image,'repeat');
-        context.fillStyle=patt;
-        context.fillRect(this.pos.x, this.pos.y, (this.pos.x+this.width), (this.pos.y+this.height));
-        */
-
         context.drawImage(this.image, this.pos.x, this.pos.y)
         context.restore();
 
@@ -479,8 +465,6 @@ function init () {
     ];
 };
 
-init ();
-
 const keys = {
     right : {
         pressed: false
@@ -493,8 +477,11 @@ const keys = {
     },
 }
 
+let timer = false;
+
 function tick () {
     requestAnimationFrame(tick);
+    console.log("таймер запущен");
 
     now = Date.now();
 
@@ -737,6 +724,7 @@ coins.forEach(coin => {
             mainSound.pause();
             clickSound(gameOverSound);
             vibro(false);
+            player = 0;
             lives = 0;
             gameState = 2;
             livesEl.innerHTML=lives;
@@ -774,6 +762,7 @@ coins.forEach(coin => {
             clickSound(gameOverSound);
             vibro(false);
             lives = 0;
+            player = 0;
             gameState = 2;
             livesEl.innerHTML=lives;
             let gameOverEl = document.getElementById('gameOver');
@@ -808,14 +797,20 @@ coins.forEach(coin => {
                 let winEl = document.getElementById('win');
                 winEl.style.backgroundColor="orange";
             },0);
+        let saveScore1El = document.getElementById('saveScore1');
+        setTimeout( function() {
+            saveScore1El.style.display="block";
+        },30);
+
     }
 }
 }
 
 
-tick();
+
 
 let startButt=document.getElementById('start');
+startButt.addEventListener("click", switchToMainPage);
 startButt.addEventListener("click", start);
 startButt.addEventListener("touchstart", start);
 
@@ -825,7 +820,9 @@ function start(eo) {
         return
     }
     else  {
-        if (gameState == 0) {clickSoundInit();}
+        if (gameState == 0) {
+            clickSoundInit();
+        }
         if (gameState == 2) {
         let gameOverEl = document.getElementById('gameOver');
         gameOverEl.style.transitionDuration='0.1s'; 
@@ -1012,4 +1009,302 @@ function moveRightEnd(eo) {
     keys.right.pressed = false;
 }
 
+function saveScoreButtonsInit() {
+let winButtonYesEl = document.getElementById('winButtonYes');
+winButtonYesEl.addEventListener("click", savescore);
 
+let winButtonNoEl = document.getElementById('winButtonNo');
+winButtonNoEl.addEventListener("click", dontSavescore);
+
+
+let winButtonSendEl=document.getElementById('winButtonSend');
+winButtonSendEl.addEventListener("click", saveScoreFunc);
+}
+
+function savescore() {
+    let saveScore1El = document.getElementById('saveScore1');
+    saveScore1El.style.display="none";
+    let saveScore2El = document.getElementById('saveScore2');
+    saveScore2El.style.display="block";
+}
+
+function dontSavescore() {
+    let saveScore1El = document.getElementById('saveScore1');
+        saveScore1El.style.display="none";
+}
+
+
+const ajaxHandlerScript="https://fe.it-academy.by/AjaxStringStorage2.php";
+let playerInfo; // instance - {name:'Michael', score:'5000'};
+let stringName='KHOMTCHIK_MARIO_TABLEOFRECORDS';
+let updatePassword;
+
+function saveScoreFunc() {
+    updatePassword=Math.random();
+    $.ajax( {
+            url : ajaxHandlerScript, 
+            type : 'POST', 
+            cache : false, 
+            dataType:'json',
+            data : { f : 'LOCKGET', n : stringName, p : updatePassword },
+            success : lockGetReady,
+            error : errorHandler
+        }
+    );
+        
+    setTimeout( function() {
+        let saveScore2El = document.getElementById('saveScore2');
+        saveScore2El.style.display="none";
+    },30);
+}
+
+function lockGetReady(callresult) {
+    if ( callresult.error!=undefined )
+        alert(result.error);
+    else {
+        playerInfo=[];
+        if ( callresult.result!="" ) {
+            playerInfo=JSON.parse(callresult.result);
+        }
+
+        const playerInfoName=document.getElementById('playerName').value;
+        const playerInfoScore=score;
+
+        playerInfo.push( { name: playerInfoName, score: playerInfoScore } );
+
+        playerInfo.sort(function (a, b) {
+            if (a.score > b.score) {
+              return -1;
+            }
+            if (a.score < b.score) {
+              return 1;
+            }
+            return 0;
+          });
+
+        if ( playerInfo.length>5 )
+        playerInfo=playerInfo.slice(0,5);
+
+        $.ajax( {
+                url : ajaxHandlerScript, 
+                type : 'POST', 
+                cache : false, 
+                dataType:'json',
+                data : { f : 'UPDATE', n : stringName,
+                    v : JSON.stringify(playerInfo), p : updatePassword },
+                success : updateReady, 
+                error : errorHandler
+                }
+            );
+        }
+}
+
+function updateReady(callresult) {
+    if ( callresult.error!=undefined )
+        alert(callresult.error);
+}
+
+function errorHandler(jqXHR,statusStr,errorStr) {
+    alert(statusStr+' '+errorStr);
+}
+
+
+let highScoreButtEl=document.getElementById('highScoreButt');
+highScoreButtEl.addEventListener("click", switchToScorePage);
+
+function showScoreFunc() {
+    $.ajax( {
+        url : ajaxHandlerScript,
+        type : 'POST', dataType:'json',
+        data : { f : 'READ', n : stringName },
+        cache : false,
+        success : readReady,
+        error : errorHandler
+    }
+);  
+}
+
+function readReady(callresult) {
+    if ( callresult.error!=undefined )
+        alert(callresult.error);
+    else {
+        playerInfo=[];
+        if ( callresult.result!="" ) { 
+            playerInfo=JSON.parse(callresult.result);
+        }
+        showHighScore();
+    }
+}
+
+function showHighScore() {
+    let highScoreTable=document.getElementById('highScoreTable');
+    let tr=document.createElement("tr");
+    highScoreTable.innerHTML="<th>Name</th><th>Score</th>";
+    highScoreTable.appendChild(tr);
+    let str='';
+    for ( let i=0; i<playerInfo.length; i++ ) {
+        const info=playerInfo[i];
+        let tr=document.createElement("tr");
+        let td1=document.createElement("td");
+        td1.innerHTML="<b>"+escapeHTML(info.name)+"</b> ";
+        tr.appendChild(td1);
+        let td2=document.createElement("td");
+        td2.innerHTML=escapeHTML(info.score);
+        tr.appendChild(td2);
+        highScoreTable.appendChild(tr);
+    }
+}
+
+function escapeHTML(text) {
+    if ( !text )
+        return text;
+    text=text.toString()
+        .split("&").join("&amp;")
+        .split("<").join("&lt;")
+        .split(">").join("&gt;")
+        .split('"').join("&quot;")
+        .split("'").join("&#039;");
+    return text;
+}
+
+
+let rulesButtEl=document.getElementById('rules');
+rulesButtEl.addEventListener("click", switchToRulesPage);
+
+//Single Page Application 
+// #Main - main page
+// #Score - hight score page
+// #Rules - page with rules
+
+window.onhashchange=switchToStateFromURLHash;
+
+var SPAState={};
+
+function switchToStateFromURLHash() {
+    var URLHash=window.location.hash;
+    var stateStr=URLHash.substr(1);
+    if ( stateStr!="" ) {
+        SPAState={ pagename: stateStr }; 
+    }
+    else
+        SPAState={pagename:'Main'};
+    console.log('Новое состояние приложения:');
+    console.log(SPAState);
+
+    var pageHTML="";
+    switch ( SPAState.pagename ) {
+      case 'Main':
+        pageHTML+=`<canvas class="field" id="field" ></canvas>
+            <div class="gameOver" id="gameOver">GAME OVER</div>
+            <div class="win" id="win">YOU WIN!</div>
+            <div  class="saveScore firstBlock" id="saveScore1">SAVE YOUR SCORE?
+            <button class="winButton butt1" id="winButtonYes">YES</button>
+            <button class="winButton butt2" id="winButtonNo">NO</button>
+            </div>
+             <div  class="saveScore secondBlock" id="saveScore2">ENTER YOUR NAME
+            <input type="text" class="input" id="playerName">
+            <button class="butt3" id="winButtonSend">SEND</button>
+            </div>`;
+        document.getElementById('contentContainer').innerHTML=pageHTML;
+        canvasInit();
+        init ();
+        if (timer === false ) {
+        tick();
+        timer = true;
+        };
+        scoreEl = document.getElementById('score');
+        scoreEl.innerHTML=score;
+        worldEl = document.getElementById('world');
+        worldEl.innerHTML=world;
+        livesEl = document.getElementById('lives');
+        livesEl.innerHTML=lives;
+        coinsEl = document.getElementById('coins');
+        coinsEl.innerHTML=coinsSum;
+        timeEl = document.getElementById('time');
+        timeEl.innerHTML=gameTime;
+        saveScoreButtonsInit();
+        startButt.innerHTML='START';
+        startButt.removeEventListener("click", switchToMainPage);
+        startButt.addEventListener("click", start);
+        startButt.addEventListener("touchstart", start);
+        break;
+      case 'Score':
+        pageHTML+=`<table class="highScoreTable" id="highScoreTable"></table>`;
+        document.getElementById('contentContainer').innerHTML=pageHTML;
+        showScoreFunc();
+        startButt.innerHTML='MAIN PAGE';
+        startButt.addEventListener("click", switchToMainPage);
+        startButt.removeEventListener("click", start);
+        startButt.removeEventListener("touchstart", start);
+        gameState = 0;
+        player = 0;
+        lives = 0;
+        livesEl.innerHTML=lives;
+        score = 0;
+        scoreEl.innerHTML=score;
+        coinsSum = 0;
+        coinsEl.innerHTML=coinsSum;
+        scrollOffset = 0;
+        gameTime = gameTimeValue;
+        timeEl.innerHTML=gameTime;
+        mainSound.pause();
+        break;
+      case 'Rules':
+        pageHTML+=`<div class="rulesText" id="rulesText">
+        <h1>Rules</h1>
+        <br>
+        <br>
+        <p>When playing, the player is assuming the role of Mario and has to go through the Mushroom Kingdom and reach the flagpole at the end of each level. There are coins scattered throughout the game which need to be collected. There are also special bricks with question marks that reveal more coins and other special items once hit. Along the way, Mario encounters enemies that can be defeated by jumping on them.</p>
+        </div>`;
+        document.getElementById('contentContainer').innerHTML=pageHTML;
+        startButt.innerHTML='MAIN PAGE';
+        startButt.addEventListener("click", switchToMainPage);
+        startButt.removeEventListener("click", start);
+        startButt.removeEventListener("touchstart", start);
+        gameState = 0;
+        player = 0;
+        lives = 0;
+        livesEl.innerHTML=lives;
+        score = 0;
+        scoreEl.innerHTML=score;
+        coinsSum = 0;
+        coinsEl.innerHTML=coinsSum;
+        scrollOffset = 0;
+        gameTime = gameTimeValue;
+        timeEl.innerHTML=gameTime;
+        mainSound.pause();
+        break;
+    }
+
+}
+
+function switchToState(newState) {
+    var stateStr=newState.pagename;
+    location.hash=stateStr;
+  }
+
+function switchToMainPage() {
+    switchToState( { pagename:'Main' } );
+  }
+
+function switchToScorePage() {
+    switchToState( { pagename:'Score'} );
+  }
+
+function switchToRulesPage() {
+    switchToState( { pagename:'Rules' } );
+}
+
+switchToStateFromURLHash();
+
+
+window.onbeforeunload=befUnload;
+//highScoreButtEl.addEventListener("click", befUnload);
+//rulesButtEl.addEventListener("click", befUnload);
+
+
+function befUnload(EO) {
+  EO=EO||window.event;
+  if ( gameState === 1 )
+    EO.returnValue='А у вас есть несохранённые изменения!';
+};

@@ -6,30 +6,41 @@
     <title>Super Mario</title>
     <link href="style_2.css" rel="stylesheet" type="text/css"/>	
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <script src="https://fe.it-academy.by/JQ/jquery.js"></script>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   </head>
   <body>
     <div class="wrapper">
       <div class="navigation">
-        <button class="button" id="start">START</button>
-        <button class="button">RULES</button>
+        <button class="button" id="start">NEW GAME</button>
+        <button class="button" id="highScoreButt">HIGH SCORE</button>
+        <button class="button" id="rules">RULES</button>
         <button class="button"  id="sound">SOUND ON</button>
       </div>
-      <div class="navigation">
+      <div class="navigation arrow">
         <button class="button" id="leftButt">LEFT ◄ </button>
         <button class="button" id="upButt">UP</button>
         <button class="button"  id="rightButt"> ► RIGHT</button>
       </div>
-      <div class="playField" id="playField">
-          <canvas class="field" id="field" ></canvas>
+      <div class="contentContainer" id="contentContainer">
+        <!--<canvas class="field" id="field" ></canvas>
           <div class="gameOver" id="gameOver">GAME OVER</div>
           <div class="win" id="win">YOU WIN!</div>
+          <div  class="saveScore firstBlock" id="saveScore1">SAVE YOUR SCORE?
+            <button class="winButton butt1" id="winButtonYes">YES</button>
+            <button class="winButton butt2" id="winButtonNo">NO</button>
+          </div>
+          <div  class="saveScore secondBlock" id="saveScore2">ENTER YOUR NAME
+            <input type="text" class="input" id="playerName">
+            <button class="butt3" id="winButtonSend">SEND</button>
+          </div>
+        -->
       </div>
       <div class="resultsContainer">
         <div class="firstLine">
           <div class="result">SCORE
-            <div class="result" id="score"></div>
+             <div class="result" id="score"></div>
           </div>
           <div class="result">COINS
             <div class="result" id="coins"></div>
