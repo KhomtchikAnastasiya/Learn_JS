@@ -15,25 +15,31 @@ body{
 }
 
 .wrapper {
+    position: relative;
     height: 100vh;
     padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column-reverse;
+    flex-direction: row;
 }
 
 .navigation, .resultsContainer {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-self:center;
+}
+.navigation.arrow {
+    position: absolute;
+    top: 90vh;
+    flex-direction: row;
 }
 
 .button, .result {
     font-family: 'Press Start 2P', cursive;
     font-size: 12px;
 	padding: 0.3em 0.3em;
-	margin: 0.2em;
+	margin:  1.2em 0.2em 1.2em 0.2em;
     background-color:rgb(40, 61, 100);
 	color: #F9E3BA;
 	text-decoration: none;
@@ -59,14 +65,14 @@ body{
     position: absolute;
     top:-1000px;
     left: 0px;
-    width: 600px;
-    height: 300px;
+    width: 800px;
+    height: 400px;
     background-color: black;
     color: #F9E3BA;
     font-family: 'Press Start 2P', cursive;
     font-size: 32px;
     text-align: center;
-    line-height: 300px;
+    line-height: 400px;
 
 }
 
@@ -74,25 +80,25 @@ body{
     position: absolute;
     top:-1000px;
     left: 0px;
-    width: 600px;
-    height: 300px;
+    width: 800px;
+    height: 400px;
     background-color: red;
     color: #F9E3BA;
     font-family: 'Press Start 2P', cursive;
     font-size: 20px;
     text-align: center;
-    line-height: 300px;
+    line-height: 400px;
 
 }
 
 .saveScore {
     position: absolute;
-    top: 200px;
-    left: 150px;
+    top: 300px;
+    left: 250px;
     width: 300px;
     height: 100px;
     padding: 2em;
-    background-color: orange;
+    background-color: orangered;
     color: #F9E3BA;
     text-align: center;
     font-family: 'Press Start 2P', cursive;
@@ -142,7 +148,6 @@ body{
     left: 230px;
 }
 
-
 .field {
     width: 800px;
     height:400px;
@@ -175,7 +180,48 @@ body{
     text-align: center;
 }
 
-@media only all and (max-width:850px) {
+@media only all and (max-width:1000px) {
+ 
+    .contentContainer {
+
+        width: 600px;
+        height:300px;
+
+    }
+       
+    .field {
+        width: 600px;
+        height:300px;
+    }
+    
+    .navigation.arrow {
+        top: 85vh;
+        }
+
+        
+    .gameOver {
+        width: 600px;
+        height: 300px;
+        line-height: 300px;
+
+    }
+
+    .win {
+        width: 600px;
+        height: 300px;
+        line-height: 300px;
+
+    }
+
+    
+    .saveScore {
+        top: 200px;
+        left: 150px;
+    }
+
+}
+
+@media only all and (max-width:800px) {
     .wrapper {
         flex-direction: column-reverse;
     }
@@ -196,9 +242,8 @@ body{
 
     }
        
-    .field {
-        width: 600px;
-        height:300px;
+    .navigation.arrow {
+        position:static;
     }
     
 }
@@ -212,7 +257,7 @@ body{
         height:300px;
         overflow:hidden;
     }
-        
+ 
     .gameOver {
         width: 450px;
         font-size: 20px;
@@ -221,6 +266,11 @@ body{
     .win {
     width: 450px;
     font-size: 12px;
+    }
+    
+    .saveScore {
+        top: 200px;
+        left: 75px;
     }
 }
 
@@ -241,8 +291,54 @@ body{
     width: 250px;
     font-size: 8px;
     }
+
+    .saveScore {
+        top: 200px;
+        left: 25px;
+        width: 200px;
+        height: 100px;
+        font-size: 8px;
+    }
+
+    .winButton {
+        font-size: 8px;
+        width: 30px;
+    }
+    
+    .butt1 {
+        top:50px;
+        left: 40px;
+    }
+    
+    .butt2 {
+        top:50px;
+        left: 130px;
+    }
+    
+    .input {
+        position: absolute;
+        top:50px;
+        left: 5px;
+        height: 20px;
+        width: 150px; 
+    }
+    
+    .butt3 {
+        height: 30px;
+        width: 30px;
+        font-size: 5px;
+        top:45px;
+        left: 165px;
+    }
+    
     .navigation {
-        flex-direction: row;
+        display: grid;
+        grid-template-columns:1fr 1fr;
+    }
+
+    .navigation.arrow {
+       display: flex;
+       flex-direction: row;
     }
     .resultsContainer {
         display: grid;
@@ -251,6 +347,19 @@ body{
     .button, .result {
         font-size: 12px;
         padding: 0.3em 0.3em;
-        margin: 0.1em;
+        margin: 0.3em 0.1em 0.3em 0.1em;
     }
+
+    .rulesText {
+        font-size: 8px;
+    }
+
+    .highScoreTable {
+        font-size: 10px;
+    }
+    
+    .highScoreTable th {
+        font-size: 15px;
+    }
+    
 }

@@ -39,11 +39,17 @@ let now;
 let beginTime;
 let dt = 0;
 let lastKey;
-let scoreEl;
-let worldEl;
-let livesEl;
-let coinsEl;
-let timeEl;
+
+let scoreEl = document.getElementById('score');
+scoreEl.innerHTML=score;
+let worldEl = document.getElementById('world');
+worldEl.innerHTML=world;
+let livesEl = document.getElementById('lives');
+livesEl.innerHTML=lives;
+let coinsEl = document.getElementById('coins');
+coinsEl.innerHTML=coinsSum;
+let timeEl = document.getElementById('time');
+timeEl.innerHTML=gameTime;
 
 let imageA = {
     brick:'image/brick.png',
@@ -481,7 +487,6 @@ let timer = false;
 
 function tick () {
     requestAnimationFrame(tick);
-    console.log("таймер запущен");
 
     now = Date.now();
 
@@ -489,7 +494,6 @@ function tick () {
 
         if (dt< Math.round((now-beginTime)/1000)){
             dt = Math.round((now-beginTime)/1000);
-            console.log(dt);
             gameTime = gameTimeValue - dt;
             timeEl.innerHTML=gameTime;
         }
@@ -519,8 +523,14 @@ function tick () {
     if (player) {
 
     player.update();
+
+    var mq=window.matchMedia("(max-width:455px)"); 
     
-    if ((keys.right.pressed && player.pos.x < 300)){
+    if ((mq.matches && keys.right.pressed && player.pos.x < 100)){
+                player.speed.x = speedXValue;
+                console.log("Медиаусловие!");
+            }
+    else if ((!mq.matches && keys.right.pressed && player.pos.x < 300)){
         player.speed.x = speedXValue;
     } 
     else if ((keys.left.pressed && player.pos.x > 50) ||
@@ -810,9 +820,6 @@ coins.forEach(coin => {
 
 
 let startButt=document.getElementById('start');
-startButt.addEventListener("click", switchToMainPage);
-startButt.addEventListener("click", start);
-startButt.addEventListener("touchstart", start);
 
 function start(eo) {
     eo=eo||window.event;
@@ -834,6 +841,10 @@ function start(eo) {
             winEl.style.top="-1000"+"px";
             winEl.style.backgroundColor="red";
             }
+        let saveScore1El = document.getElementById('saveScore1');
+        saveScore1El.style.display="none";
+        let saveScore2El = document.getElementById('saveScore2');
+        saveScore2El.style.display="none";
         gameState = 1;
         lives = 3;
         livesEl.innerHTML=lives;
@@ -1082,8 +1093,8 @@ function lockGetReady(callresult) {
             return 0;
           });
 
-        if ( playerInfo.length>5 )
-        playerInfo=playerInfo.slice(0,5);
+        if ( playerInfo.length>10 )
+        playerInfo=playerInfo.slice(0,10);
 
         $.ajax( {
                 url : ajaxHandlerScript, 
@@ -1111,6 +1122,7 @@ function errorHandler(jqXHR,statusStr,errorStr) {
 
 let highScoreButtEl=document.getElementById('highScoreButt');
 highScoreButtEl.addEventListener("click", switchToScorePage);
+highScoreButtEl.addEventListener("touchstart", switchToScorePage);
 
 function showScoreFunc() {
     $.ajax( {
@@ -1170,6 +1182,7 @@ function escapeHTML(text) {
 
 let rulesButtEl=document.getElementById('rules');
 rulesButtEl.addEventListener("click", switchToRulesPage);
+rulesButtEl.addEventListener("touchstart", switchToRulesPage);
 
 //Single Page Application 
 // #Main - main page
@@ -1188,8 +1201,8 @@ function switchToStateFromURLHash() {
     }
     else
         SPAState={pagename:'Main'};
-    console.log('Новое состояние приложения:');
-    console.log(SPAState);
+
+
 
     var pageHTML="";
     switch ( SPAState.pagename ) {
@@ -1212,44 +1225,40 @@ function switchToStateFromURLHash() {
         tick();
         timer = true;
         };
-        scoreEl = document.getElementById('score');
-        scoreEl.innerHTML=score;
-        worldEl = document.getElementById('world');
-        worldEl.innerHTML=world;
-        livesEl = document.getElementById('lives');
-        livesEl.innerHTML=lives;
-        coinsEl = document.getElementById('coins');
-        coinsEl.innerHTML=coinsSum;
-        timeEl = document.getElementById('time');
-        timeEl.innerHTML=gameTime;
         saveScoreButtonsInit();
         startButt.innerHTML='START';
         startButt.removeEventListener("click", switchToMainPage);
         startButt.addEventListener("click", start);
         startButt.addEventListener("touchstart", start);
+        startButt.removeEventListener("touchstart", switchToMainPage);
         break;
       case 'Score':
+        if (gameState!=0) {
+            var leavePage=confirm('Уйти со странички? Возможно, внесенные изменения не сохранятся.');
+            if (!leavePage) {return}
+        }
         pageHTML+=`<table class="highScoreTable" id="highScoreTable"></table>`;
         document.getElementById('contentContainer').innerHTML=pageHTML;
         showScoreFunc();
         startButt.innerHTML='MAIN PAGE';
         startButt.addEventListener("click", switchToMainPage);
+        startButt.addEventListener("touchstart", switchToMainPage);
         startButt.removeEventListener("click", start);
         startButt.removeEventListener("touchstart", start);
         gameState = 0;
         player = 0;
         lives = 0;
-        livesEl.innerHTML=lives;
         score = 0;
-        scoreEl.innerHTML=score;
         coinsSum = 0;
-        coinsEl.innerHTML=coinsSum;
         scrollOffset = 0;
         gameTime = gameTimeValue;
-        timeEl.innerHTML=gameTime;
         mainSound.pause();
         break;
       case 'Rules':
+        if (gameState!=0) {
+            var leavePage=confirm('Уйти со странички? Возможно, внесенные изменения не сохранятся.');
+            if (!leavePage) {return}
+        }
         pageHTML+=`<div class="rulesText" id="rulesText">
         <h1>Rules</h1>
         <br>
@@ -1259,22 +1268,24 @@ function switchToStateFromURLHash() {
         document.getElementById('contentContainer').innerHTML=pageHTML;
         startButt.innerHTML='MAIN PAGE';
         startButt.addEventListener("click", switchToMainPage);
+        startButt.addEventListener("touchstart", switchToMainPage);
         startButt.removeEventListener("click", start);
         startButt.removeEventListener("touchstart", start);
         gameState = 0;
         player = 0;
         lives = 0;
-        livesEl.innerHTML=lives;
         score = 0;
-        scoreEl.innerHTML=score;
         coinsSum = 0;
-        coinsEl.innerHTML=coinsSum;
         scrollOffset = 0;
         gameTime = gameTimeValue;
-        timeEl.innerHTML=gameTime;
         mainSound.pause();
         break;
     }
+
+    scoreEl.innerHTML=score;
+    livesEl.innerHTML=lives;
+    coinsEl.innerHTML=coinsSum;
+    timeEl.innerHTML=gameTime;
 
 }
 
@@ -1299,12 +1310,10 @@ switchToStateFromURLHash();
 
 
 window.onbeforeunload=befUnload;
-//highScoreButtEl.addEventListener("click", befUnload);
-//rulesButtEl.addEventListener("click", befUnload);
-
 
 function befUnload(EO) {
   EO=EO||window.event;
   if ( gameState === 1 )
-    EO.returnValue='А у вас есть несохранённые изменения!';
+    EO.returnValue='Возможно, внесенные изменения не сохранятся.';
 };
+
