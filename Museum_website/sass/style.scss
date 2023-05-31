@@ -1,2 +1,17 @@
-@import "base/base";
 @import "abstracts/constants";
+@import "base/base";
+
+// Layout
+@import "layout/wrapper";
+@import "layout/header";
+@import "layout/footer";
+
+// Components
+@import "components/contacts";
+@import "components/explore";
+@import "components/gallery";
+@import "components/parallax";
+@import "components/tickets";
+@import "components/tour";
+@import "components/video";
+@import "components/welcome";

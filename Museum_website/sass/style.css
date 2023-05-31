@@ -9,6 +9,69 @@ body {
 
 h1 {
   font-family: "Forum", "Comic Sans MS", cursive;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 80px;
+  line-height: 90px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-family: "Forum", "Comic Sans MS", cursive;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 80px;
+  line-height: 90px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+}
+
+h3 {
+  font-family: "Forum", "Comic Sans MS", cursive;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 35px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+}
+
+h4 {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 33px;
+}
+
+.wrapper {
+  max-width: 1440px;
+  margin: auto;
+}
+
+.header {
+  background-color: #030303;
+  color: #FFFFFF;
+}
+
+.footer {
+  background-color: #030303;
+  color: #FFFFFF;
+}
+
+.explore {
+  background-color: #030303;
+  color: #FFFFFF;
+}
+
+.gallery {
+  background-color: #030303;
+  color: #FFFFFF;
+}
+
+.welcome {
+  background-color: #030303;
+  color: #FFFFFF;
 }
 
 /*# sourceMappingURL=style.css.map */
