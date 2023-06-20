@@ -1,0 +1,47 @@
+.video-article {
+    color: $color-additional;
+    margin:0;
+}
+
+.video-layout {
+    margin:7.5rem 0 0;
+}
+
+.video-text {
+    margin: 0;
+    @include font ($size:2.2rem, $height:3.85rem, $weight:300);
+}
+
+.video__screen {
+    margin:7.5rem 0 0rem 0;
+}
+
+.video__slider {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    margin:4rem 0 4rem 0;
+}
+
+.video__slider-item {
+    margin:0 4.2rem 0 0;
+}
+
+.video-slider__carousel {
+    display: flex; 
+    justify-content: center;
+    >* {
+        list-style: disc;
+        height: 12px;
+        width:12px;
+        color: $color-video-slider;
+        padding: 0 0 0 2rem;
+        &:active {
+            color:$color-video-slider-active;
+        }
+        &:hover {
+            color: $color-primary;
+            cursor: pointer;
+        }
+    }
+}

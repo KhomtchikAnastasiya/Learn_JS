@@ -1,0 +1,25 @@
+.navigation {
+    display:flex;
+    font-weight: 100;
+    font-size: 2.2rem;
+    line-height: 2.6rem;
+    letter-spacing: 0.2rem;
+    padding: 0;
+    margin: 0;
+}
+
+.navigation__link {
+    list-style: none;
+    padding-left: 5.5rem;
+    cursor: pointer;
+    &:hover {
+        color: $color-additional;
+    }
+    &:active {
+        color: $color-active-link;
+    }
+}
+
+.logo {
+    line-height: 1rem;
+}

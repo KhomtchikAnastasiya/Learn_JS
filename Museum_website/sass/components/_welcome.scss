@@ -2,3 +2,19 @@
     background-color: $color-background;
     color: $color-light;
 }
+
+.welcome__wrapper {
+    position: relative;
+    height: 810px;
+    width: 1440px;
+}
+
+
+.welcome__content {
+    position: absolute;
+    top:0px;
+    left:0px;
+    width: 598px;
+    padding: 15rem 0 0 0;
+}
+

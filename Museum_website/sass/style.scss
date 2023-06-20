@@ -1,12 +1,23 @@
+@import "base/normalize";
+
+// Abstracts
 @import "abstracts/constants";
+@import "abstracts/mixins";
+@import "abstracts/placeholders";
+
+// Base
 @import "base/base";
+@import "base/buttons";
+@import "base/icons";
 
 // Layout
 @import "layout/wrapper";
 @import "layout/header";
 @import "layout/footer";
+@import "layout/columns";
 
 // Components
+@import "components/navigation";
 @import "components/contacts";
 @import "components/explore";
 @import "components/gallery";
@@ -15,3 +26,5 @@
 @import "components/tour";
 @import "components/video";
 @import "components/welcome";
+@import "components/slider";
+

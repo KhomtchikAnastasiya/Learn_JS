@@ -11,112 +11,152 @@
   </head>
   <body>
     <header class="header">
-        <div class="wrapper">
-            <a href="#" class="logo"><span class="ico ico_logo>"></span>Logo</a>
+        <div class="wrapper header__wrapper">
+            <a href="#" class="logo">
+                <object type="image/svg+xml" data="./img/ico/ico_logo.svg" class="ico ico_logo">
+                    Your browser does not support SVG.
+                </object>
+            </a>
             <nav class="header__navigation">
                 <ul class="navigation">
-                    <li>Visiting</li>
-                    <li>Explore</li>
-                    <li>Video</li>
-                    <li>Gallery</li>
-                    <li>Tickets</li>
-                    <li>Contacts</li>
+                    <li class="navigation__link">Visiting</li>
+                    <li class="navigation__link">Explore</li>
+                    <li class="navigation__link">Video</li>
+                    <li class="navigation__link">Gallery</li>
+                    <li class="navigation__link">Tickets</li>
+                    <li class="navigation__link">Contacts</li>
                 </ul>
             </nav>
         </div>
     </header>
     <main class="main">
         <section class="welcome">
-            <div class="wrapper">
+            <div class="wrapper welcome__wrapper">
+                <div class="slider">
+                    <div class="slider__picture">
+                        <img src="./img/welcome/1.jpg" alt="Mona Lisa">
+                    </div>
+                </div>
                 <div class="welcome__content">
-                    <h1>Welcome to the Louvre</h1>
+                    <h1>Welcome<br> to the Louvre</h1>
                     <p>From the castle to the museum</p>
                     <button class="button">Discover the Louvre</button>
                 </div>
-                <div class="welcome__slider">
-                    <div class="welcome__slider-picture">
-                        <img src="./img/welcome/1.jpg" alt="Mona Lisa">
+                <div class="slider__pagination">
+                    <div class="layout-3-column">
+                        <div class="slider__numbers">
+                            <span class="slider__active-number">1</span> 
+                            <span>|</span>
+                            <span class="slider__amount-number">5</span> 
+                        </div>
+                        <ul class="slider__carousel">
+                            <li><span class="square"></span></li>
+                            <li><span class="square"></span></li>
+                            <li><span class="square"></span></li>
+                            <li><span class="square"></span></li>
+                            <li><span class="square"></span></li>
+                        </ul>
+                        <div class="slider__arrows">
+                            <span class="arrow-right"></span>
+                            <span class="arrow-left"></span>
+                        </div>
                     </div>
-                    <div class="welcome__slider-pagination"></div>
                 </div>
             </div>
         </section>
         <section class="tour">
             <div class="wrapper">
-                <h2>Virtual tour</h2>
-                <hr>
-                <div class="layout-3-column">
+                <h2 class="tour-article">Virtual tour</h2>
+                <hr class="hr">
+                <div class="tour-layout-3-column layout-3-column">
                     <div class="showpiece">
                         <img class="showpiece__picture" src="./img/tour/1.jpg" alt="Royal Palace"></img>
                         <h3 class="showpiece__logo">Royal Palace</h3>
-                        <hr class="showpiece__hr">
-                        <p>360° Virtual Tour</p>
-                        <p>Google Street Panorama View</p>
+                        <hr class="hr showpiece__hr">
+                        <p class="showpiece__text">360° Virtual Tour</p>
+                        <p class="showpiece__note">Google Street Panorama View</p>
                     </div>
                     <div class="showpiece">
                         <img class="showpiece__picture" src="./img/tour/2.jpg" alt="Denon Wing"></img>
                         <h3 class="showpiece__logo">Denon Wing</h3>
-                        <hr class="showpiece__hr">
-                        <p>360° Virtual Tour</p>
-                        <p>Google Street Panorama View</p>
+                        <hr class="hr showpiece__hr">
+                        <p class="showpiece__text">360° Virtual Tour</p>
+                        <p class="showpiece__note">Google Street Panorama View</p>
                     </div>
                     <div class="showpiece">
                         <img class="showpiece__picture" src="./img/tour/3.jpg" alt="Colonnade Perrault"></img>
                         <h3 class="showpiece__logo">Colonnade Perrault</h3>
-                        <hr class="showpiece__hr">
-                        <p>360° Virtual Tour</p>
-                        <p>Google Street Panorama View</p>
+                        <hr class="hr showpiece__hr">
+                        <p class="showpiece__text">360° Virtual Tour</p>
+                        <p class="showpiece__note">Google Street Panorama View</p>
                     </div>
                     <div class="showpiece">
                         <img class="showpiece__picture" src="./img/tour/4.jpg" alt="Greek hall"></img>
                         <h3 class="showpiece__logo">Greek hall</h3>
-                        <hr class="showpiece__hr">
-                        <p>360° Virtual Tour</p>
-                        <p>Google Street Panorama View</p>
+                        <hr class="hr showpiece__hr">
+                        <p class="showpiece__text">360° Virtual Tour</p>
+                        <p class="showpiece__note">Google Street Panorama View</p>
                     </div>
                     <div class="showpiece">
                         <img class="showpiece__picture" src="./img/tour/5.jpg" alt="Mona Lisa"></img>
                         <h3 class="showpiece__logo">Mona Lisa</h3>
-                        <hr class="showpiece__hr">
-                        <p>360° Virtual Tour</p>
-                        <p>Google Street Panorama View</p>
+                        <hr class="hr showpiece__hr">
+                        <p class="showpiece__text">360° Virtual Tour</p>
+                        <p class="showpiece__note">Google Street Panorama View</p>
                     </div>
                     <div class="showpiece">
                         <img class="showpiece__picture" src="./img/tour/6.jpg" alt="Night Palace"></img>
                         <h3 class="showpiece__logo">Night Palace</h3>
-                        <hr class="showpiece__hr">
-                        <p>360° Virtual Tour</p>
-                        <p>Google Street Panorama View</p>
+                        <hr class="hr showpiece__hr">
+                        <p class="showpiece__text">360° Virtual Tour</p>
+                        <p class="showpiece__note">Google Street Panorama View</p>
                     </div>
                 </div>
             </div>
         </section>
         <section class="explore">
             <div class="wrapper">
-                <div class="explore__content">
-                    <h2>Picture explore</h2>
-                    <hr>
-                    <p>Las Meninas is a 1656 painting by Diego Velázquez, the leading artist of the Spanish Golden Age.</p>
-                    <p>It was cleaned in 1984 to remove a "yellow veil" of dust that had gathered since the previous restoration in the 19th century.</p>
-                    <p>The cleaning provoked furious protests, not because the picture had been damaged in any way, but because it looked different.</p>
-                </div>
-                <div class="explore__slider">
-                    <img class="explore__slider-picture" src="./img/explore/1.jpg" alt="Las Meninas with yellow veil"></img>
-                    <img class="explore__slider-picture" src="./img/explore/2.jpg" alt="Las Meninas without yellow veil"></img>                    
+                <div class="explore-layout layout-2-column-50">
+                    <div class="explore__content">
+                        <h2 class="explore-article">Picture explore</h2>
+                        <hr class="hr explore__hr">
+                        <p class="explore__text">Las Meninas is a 1656 painting by Diego Velázquez, the leading artist of the Spanish Golden Age.</p>
+                        <p class="explore__text">It was cleaned in 1984 to remove a <mark>"yellow veil"</mark> of dust that had gathered since the previous restoration in the 19th century.</p>
+                        <p class="explore__text">The cleaning provoked furious protests, not because the picture had been damaged in any way, but because it looked different.</p>
+                    </div>
+                    <div class="explore__slider">
+                        <img class="explore__slider-picture slider-picture1" src="./img/explore/1.jpg" alt="Las Meninas with yellow veil"></img>
+                        <img class="explore__slider-picture slider-picture2" src="./img/explore/2.jpg" alt="Las Meninas without yellow veil"></img>
+                        <img class="explore__slider-rail slider-picture3" src="./img/explore/3.png" alt="rail"></img>                                        
+                    </div>
                 </div>
             </div>
         </section>
         <section class="video">
             <div class="wrapper">
-                <h2>Video journey</h2>
-                <hr>
-                <video src="#"></video>
-                <div class="video__slider">
-                    <video class="video__slider-video"></video>
-                    <video class="video__slider-video"></video>
-                    <video class="video__slider-video"></video>
-                    <div class="video__slider-pagination"></div>                    
+                <div class="video-layout layout-2-column-50">
+                    <h2 class="video-article">Video journey</h2>
+                    <p class="video-text">Enter and visit one of the most famous museums in the world and enjoy masterpieces such as Mona Lisa or Hammurabi's Code</p>
                 </div>
+                <div class="video__screen">
+                    <iframe width="1440" height="735" src="https://www.youtube.com/embed/O2GO-maCBYI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+                <div class="video__slider">
+                    <iframe class="video__slider-item" width="452" height="254" src="https://www.youtube.com/embed/mpnZuKH9OOY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <iframe class="video__slider-item" width="452" height="254" src="https://www.youtube.com/embed/s1cgV3rTEn0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <iframe class="video__slider-item" width="452" height="254" src="https://www.youtube.com/embed/aH0v4c5Z4KM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <iframe class="video__slider-item" width="452" height="254" src="https://www.youtube.com/embed/_xkCYkxeV_g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <iframe class="video__slider-item" width="452" height="254" src="https://www.youtube.com/embed/KqzcGKJRFck" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>                    
+                </div>
+                <ul class="video-slider__carousel">
+                    <span class="quotes-left"></span>
+                    <li><span></span></li>
+                    <li><span></span></li>
+                    <li><span></span></li>
+                    <li><span></span></li>
+                    <li><span></span></li>
+                    <span class="quotes-right"></span>
+                </ul>
             </div>
         </section>
         <section class="gallery">
@@ -193,14 +233,14 @@
                         <li>Tickets</li>
                         <li>Contacts</li>
                     </ul>
+                    <div class="footer__social">
+                        <span class="ico ico_youtube"></span>
+                        <span class="ico ico_instagram"></span>
+                        <span class="ico ico_facebook"></span>
+                        <span class="ico ico_twitter"></span>
+                        <span class="ico ico_pinterest"></span>
+                    </div>
                 </div>
-            </div>
-            <div class="footer__social">
-                <span class="ico ico_youtube"></span>
-                <span class="ico ico_instagram"></span>
-                <span class="ico ico_facebook"></span>
-                <span class="ico ico_twitter"></span>
-                <span class="ico ico_pinterest"></span>
             </div>
         </div>
         <hr>

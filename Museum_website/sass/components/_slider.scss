@@ -1,0 +1,40 @@
+.slider {
+    position: absolute;
+    top:0px;
+    right:0px;
+    height:100%;
+}
+
+.slider__pagination {
+    position: absolute;
+    bottom:0px;
+    right:0px;
+    width:60rem;
+    height:12rem;
+}
+
+.slider__carousel {
+    display: flex; 
+    >* {
+        list-style: none;
+        padding: 0 0 0 2.5rem;
+        &:first-child {
+            padding: 0;
+        }
+    }
+    li .square {
+        display: inline-block;
+        width:16px;
+        height: 16px;
+        background-color: $color-light;
+        &:hover {
+            background-color: $color-slider-unvisited; 
+            cursor: pointer;
+        }
+    }
+}
+
+.slider__arrows {
+    cursor: pointer;
+}
+

@@ -1,0 +1,15 @@
+@mixin font ($style:normal, $weight:400, $size, $height) {
+    font-style: $style;
+    font-weight: $weight;
+    font-size: $size;
+    line-height: $height;
+}
+
+@mixin columns ($width) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    >* {
+        flex-basis: $width;
+    }
+}

@@ -1,0 +1,63 @@
+.ico {
+    cursor: pointer;
+    display: inline-block;
+}
+
+.ico_youtube {
+    background-image: url(../img/ico/ico_youtube.svg);
+    height: 16px;
+    width: 22.71px;
+}
+
+.ico_instagram {
+    background-image: url(../img/ico/ico_instagram.svg);
+    height: 19.99px;
+    width: 19.99px;
+}
+
+.ico_facebook {
+    background-image: url(../img/ico/ico_facebook.svg);
+    height: 20px;
+    width: 12.5px;
+}
+
+.ico_twitter {
+    background-image: url(../img/ico/ico_twitter.svg);
+    height: 16.25px;
+    width: 20px; 
+}
+
+.ico_pinterest {
+    background-image: url(../img/ico/ico_pinterest.svg);
+    height: 20px;
+    width: 19.93px;  
+}
+
+.arrow-right {
+    display: inline-block;
+    background-image: url(../img/ico/arrow_right.png);
+    width:30px;
+    height:8px;
+}
+
+.arrow-left {
+    display: inline-block;
+    background-image: url(../img/ico/arrow_left.png);
+    width:30px;
+    height:8px;
+}
+
+.quotes-left {
+    display: inline-block;
+    background-image: url(../img/ico/quotes_left.svg);
+    width:10px;
+    height:12px;
+}
+
+.quotes-right {
+    display: inline-block;
+    background-image: url(../img/ico/quotes_right.svg);
+    background-repeat: no-repeat;
+    width:10px;
+    height:12px;
+}

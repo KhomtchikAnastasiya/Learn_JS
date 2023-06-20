@@ -2,3 +2,60 @@
     background-color: $color-background;
     color: $color-light;
 }
+
+.explore-layout {
+    padding: 7.5rem 0 7.5rem 0;
+    height: 86.5rem;
+}
+
+.explore__content {
+    padding:0 6rem 0 0;
+}
+
+.explore-article {
+    margin:0 0 2.5rem;
+}
+
+.explore__hr {
+    width: 66rem;
+    margin: 0 0 7.5rem 0;
+}
+
+.explore__text {
+    margin: 0 0 2.5rem 0;
+    @include font ($size:2.2rem, $height:3.85rem, $weight:300);
+}
+
+mark {
+    background-color:$color-background;
+    color:$color-mark-text;
+    font-weight: 400;
+}
+
+.explore__slider {
+    position: relative;
+}
+
+.explore__slider-picture {
+    position: absolute;
+    top:0;
+    left:0;
+}
+
+.explore__slider-rail {
+    position: absolute;
+    top:0;
+    left:420px;
+}
+
+.slider-picture1 {
+    z-index: 2;
+}
+
+.slider-picture2 {
+    z-index: 1;
+}
+
+.slider-picture3 {
+    z-index: 3;
+}

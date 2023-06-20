@@ -3,44 +3,37 @@ html {
 }
 
 body {
-    font-size: 1.6rem;
-    font-family: 'Roboto', Verdana, sans-serif;
+    @extend %font-main;
+    @include font ($size:2.2rem, $height:2.6rem, $weight:300);
 }
 
 
 h1 {
-    font-family: 'Forum', 'Comic Sans MS', cursive;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 80px;
-    line-height: 90px;
-    letter-spacing: 5px;
-    text-transform: uppercase;
+    @extend %font-add;
+    @include font ($size:8rem, $height:9rem);
+    @extend %title-letter;
 }
 
 h2 {
-    font-family: 'Forum', 'Comic Sans MS', cursive;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 80px;
-    line-height: 90px;
-    letter-spacing: 5px;
-    text-transform: uppercase;
+    @extend %font-add;
+    @include font ($size:8rem, $height:9rem);
+    @extend %title-letter;
 }
 
 h3 {
-    font-family: 'Forum', 'Comic Sans MS', cursive;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 32px;
-    line-height: 35px;
-    letter-spacing: 5px;
-    text-transform: uppercase;
+    @extend %font-add;
+    @include font ($size:3.2rem, $height:3.5rem);
+    @extend %title-letter;
 }
 
 h4 {
-    font-style: normal;
-    font-weight: 700;
-    font-size: 28px;
-    line-height: 33px;
+    @include font ($weight:700, $size:2.8rem, $height:3.3rem);
+}
+
+.hr {
+    margin:0;
+    border: none;
+    color: $color-primary; 
+    background-color:$color-primary; 
+    height: 3px;
 }
